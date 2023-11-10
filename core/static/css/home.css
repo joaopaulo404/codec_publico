@@ -1,0 +1,511 @@
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.form-control{
+    border: 1px solid #ced4da;
+}
+
+.btn-primary{
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.celula {
+    text-align: center;
+}
+
+.selectBox {
+    position: relative;
+}
+
+.selectBox select {
+    width: 100%;
+    font-weight: bold;
+}
+
+#checkboxes-municipios,
+#checkboxes-consolidados,
+#checkboxes-bairros {
+    display: none;
+    padding-left: 1.5%;
+    border: 1px #dadada solid;
+    background-color: white;
+
+}
+
+#checkboxes-municipios label,
+#checkboxes-consolidados label,
+#checkboxes-bairros label,
+.label,
+.show {
+    display: block;
+}
+
+#checkboxes-municipios label:hover,
+#checkboxes-consolidados label:hover,
+#checkboxes-bairros label:hover {
+    background-color: #1e90ff;
+}
+
+
+.btn-deleteAll:hover {
+    background-color: rgba(219, 21, 21, 0.788);
+
+}
+
+.btn-deleteAll {
+    width: 12em;
+}
+
+
+.hidden {
+    display: none;
+}
+
+#btn-download {
+    margin: 2vh 0;
+    height: auto;
+}
+
+.nested-multiselect {
+    display: flex;
+    justify-content: center;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #1e8fff28;
+}
+
+.page-container {
+    min-height: 79vh;
+    padding: 2%;
+    background-color: whitesmoke;
+    margin: auto;
+}
+
+#container-lateral {
+    /* min-height: 80vh; */
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.menu-lateral{
+    max-width: 500px;
+    margin: auto;
+}
+
+.container-resultado-pesquisa{
+    text-align: center;
+}
+
+.container-resultado-pesquisa p {
+    font-size: 20px;
+}
+
+.container-table {
+    background-color: white;
+    border: #ced4da 1px solid;
+    border-radius: 5px;
+}
+
+.container-form{
+    padding: 4% 0;
+}
+
+
+#lista-municipios,
+#lista-consolidados {
+    max-width: 95%;
+    min-width: 95%;
+    max-height: 27%;
+    min-height: 32vh;
+    width: 100%;
+    overflow-y: auto;
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    background-color: #ced4da11;
+    border-bottom: 1px solid #ced4dac0;
+    border-right: 1px solid #ced4dac0;
+    border-left: 1px solid #ced4dac0;
+    border-radius: 5px;
+}
+
+.container-dropdowns-pai {
+    /* min-height: 100px; */
+    color: rgb(48, 46, 46);
+
+}
+
+.container-dropdown-municipios,
+.container-dropdown-consolidados {
+    text-align: center;
+    max-height: 40vh;
+}
+
+.nome-cidade-label {
+    display: flex;
+    text-align: center;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+
+#container-informacoes-site {
+    text-align: center;
+    color: rgb(48, 46, 46);
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #ffffff;
+    /*background-image: url("../img/logo-siac.png");
+    background-repeat: no-repeat;
+    background-position: 95% 95%;
+    background-size: 150px 150px;*/
+}
+
+.informacoes-site {
+    padding: 5%;
+    height: 100%;
+
+}
+
+
+.municipios-selecionados,
+.consolidados-selecionados {
+    text-align: center;
+    word-wrap: break-word;
+    border-radius: 5px;
+    background-color: #275FE3;
+    color: whitesmoke;
+    margin: auto auto 0.3em auto;
+    padding: 0.15em;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#excluir-municipios,
+#excluir-consolidados {
+    text-align: center;
+    word-wrap: break-word;
+    border-radius: 10px;
+    color: black;
+    margin: auto auto 0.3em auto;
+    padding: 0.2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    cursor: pointer;
+    margin-bottom: 0.5em;
+    border: none;
+}
+
+.municipios-selecionados:hover,
+.consolidados-selecionados:hover,
+#excluir-municipios:hover,
+#excluir-consolidados:hover {
+    background-color: rgba(219, 21, 21, 0.788);
+
+}
+
+#titulo-municipios,
+#titulo-consolidados {
+    display: flex;
+    justify-content: center;
+
+}
+
+.table {
+
+    background-image: linear-gradient(rgba(255, 255, 255, 0.90) 0%, rgba(255, 255, 255, 0.90) 100%), url('../img/SIAC.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 90%;
+
+}
+
+.table tr th {
+    font-weight: bold;
+}
+
+th, td{
+    font-size: 0.9em;
+}
+
+.form-line {
+    display: flex;
+    justify-content: center;
+}
+
+
+#lbl-cidade{
+    font-size: small;
+    font-weight: 700;
+}
+
+/* Gráficos */
+
+.grafico{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.erro{
+color: red;
+}
+
+#name-user{
+    border: 1px solid #ced4dac0;
+    border-right: none;
+    border-radius: 10px 6px 6px 10px;
+    padding-left: 5px;
+    display: inline-block;
+}
+
+/* modal */
+.modal-container {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 0.8em;
+}
+  
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    border-radius: 10px;
+    max-width: 500px;
+}
+
+#modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    background: none;
+    opacity: 0.5;
+    border: none;
+}
+
+#modal-close-btn:hover {
+    opacity: 1;
+}
+  
+#modal-continue-btn{
+    margin: auto;
+}
+
+/* colors */
+
+/* html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 1.5rem;
+  color: #293b49;
+}
+
+a {
+  text-decoration: none;
+} */
+
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.number {
+  font-weight: 900;
+  text-shadow: .05em .05em 0 rgba(0,0,0,.25);
+  font-size: 15rem;
+  line-height: 1;
+  color: #11306a
+}
+
+.illustration {
+  position: relative;
+  width: 12.2rem;
+  margin: 0 2.1rem;
+}
+
+.circle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 12.2rem;
+  height: 11.4rem;
+  border-radius: 50%;
+  background-color: #11306a;
+}
+
+.clip {
+  position: absolute;
+  bottom: 0.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  width: 12.5rem;
+  height: 13rem;
+  border-radius: 0 0 50% 50%;
+}
+
+.paper {
+  position: absolute;
+  bottom: -0.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9.2rem;
+  height: 12.4rem;
+  border: 0.3rem solid #11306a;
+  background-color: white;
+  border-radius: 0.8rem;
+}
+
+.paper::before {
+    content: "";
+    position: absolute;
+    top: -0.7rem;
+    right: -0.7rem;
+    width: 1.4rem;
+    height: 1rem;
+    background-color: white;
+    border-bottom: 0.3rem solid #11306a;
+    transform: rotate(45deg);
+  }
+
+.face {
+  position: relative;
+  margin-top: 2.3rem;
+}
+
+.eyes {
+  position: absolute;
+  top: 0;
+  left: 2.4rem;
+  width: 4.6rem;
+  height: 0.8rem;
+}
+
+.eye {
+  position: absolute;
+  bottom: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: #293b49;
+  animation-name: eye;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.eye-left {
+    left: 0;
+  }
+
+.eye-right {
+    right: 0;
+  }
+
+@keyframes eye {
+  0% {
+    height: 0.8rem;
+  }
+  50% {
+    height: 0.8rem;
+  }
+  52% {
+    height: 0.1rem;
+  }
+  54% {
+    height: 0.8rem;
+  }
+  100% {
+    height: 0.8rem;
+  }
+}
+
+.rosyCheeks {
+  position: absolute;
+  top: 1.6rem;
+  width: 1rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background-color: #fdabaf;
+}
+
+.rosyCheeks-left {
+    left: 1.4rem;
+  }
+
+.rosyCheeks-right {
+    right: 1.4rem;
+  }
+
+.mouth {
+  position: absolute;
+  top: 3.1rem;
+  left: 50%;
+  width: 1.6rem;
+  height: 0.2rem;
+  border-radius: 0.1rem;
+  transform: translateX(-50%);
+  background-color: #293b49;
+}
+
+.text {
+  margin-top: 5rem;
+  font-weight: 300;
+  color: #11306a;
+}
+
+.button-404 {
+  margin-top: 4rem;
+  padding: 1.2rem 3rem;
+  border-radius: 5px;
+  color: white;
+  background-color: #18469a;
+}
+
+.button-404:hover {
+    background-color: #11306a;
+  }
+
+.by {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  text-transform: uppercase;
+  color: #293b49;
+}
+
+.byLink {
+  color: #04cba0;
+}

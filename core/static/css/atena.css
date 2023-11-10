@@ -1,0 +1,39 @@
+@media print {
+    header, nav, #rodape, button, .loading{
+        display: none !important;
+    }
+
+    iframe{
+        height: 1240px;
+    }
+
+    .cabecalho{
+        display: block !important;
+        height: 100px;
+        background-color: brown;
+    }
+
+}
+
+iframe::-webkit-scrollbar {
+    width: 0em;
+    height: 0em;
+}
+
+.navigation-wrapper {
+    display: none !important;
+}
+
+button{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+}
+
+.dashboard{
+    height: calc(100vh - 180px);
+}
+
+iframe{
+    height: 100%;
+}

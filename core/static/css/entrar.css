@@ -1,0 +1,21 @@
+.form-control{
+    border: 1px solid #ced4da;
+    width: 100%;
+    max-width: 500px;
+}
+
+.container-login{
+    margin: auto;
+}
+
+.btn-primary{
+    width: 100%;
+}
+
+.form-menu{
+    background-color: #FFF;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    width: 400px;
+}
+

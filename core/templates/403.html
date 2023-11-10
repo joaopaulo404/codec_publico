@@ -1,0 +1,15 @@
+{% extends 'usuarios/home_admin.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+    <div class="alert alert-danger mb-0 text-center" role="alert">
+        Acesso negado. Volte para a <a href="{% url 'home' %}" class="voltar_link">página inicial</a>
+    </div>
+
+    <div class="text-center mt-5">
+        <h3>ENDEREÇO DE REDE NÃO PERMITIDO</h3>
+    </div>
+{% endblock%}

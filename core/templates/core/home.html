@@ -1,0 +1,277 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block my_imports %}
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <script src="{% static 'js/scripts.js' %}" defer></script>
+    <script src="{% static 'js/home.js' %}" defer></script>
+    <script src="{% static 'js/graficos.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block links_extras %}
+
+
+{% endblock %}
+
+
+{% block msg_carregamento %}
+
+<div class="loading flex-column">
+    <div class="spinner-grow" role="status"></div>
+    <h5 class="text-white mb-2 text-center">AGUARDE. ESTAMOS CARREGANDO SUA SOLICITAÇÃO... </h5>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="row my-3 mx-1">
+        <div class="col-md-4 col-sm-12" id="container-lateral">
+            <div class="container-form menu-lateral">
+                {% block form_caminho %}
+                <form method="post" action="{% url 'home' %}" class="row" id="form-pesquisa">
+                {% endblock %}
+                    {% csrf_token %}
+                        
+                    {{ form.non_field_errors }}
+                        
+                    <!--MUNICIPIOS-->
+                    <div class="col-6 col-md-12 col-xl-6" onkeyup="filterFunctionMunicipios()">
+                        <div class="selectBox input-group-sm">
+                            <label for="municipios">Municípios:</label>
+                            <input type="text" class="text-input-municipios form-control" placeholder="Buscar Municípios..."
+                                name="municipios" id="municipios" autocomplete="off">
+                        </div>
+                        <div id="checkboxes-municipios" class="dropdown-menu dropdown-content">
+                            <label class="checkbox-label-municipios" id="lbl-allMunicipios" >
+                                <input type="checkbox" id="AllMunicipios" class="input-municipios form-check-input" onchange="mostrarBairros();atualizarDropdowns()"> SELECIONAR TUDO
+                            </label>
+                            {% for municipio in lista_municipios %}
+                            <label for="ckb-municipios-{{municipio}}" class="lbl-ckb-municipios">
+                                <input type="checkbox" name="lista_municipios" id="ckb-municipios-{{municipio}}" value="{{municipio}}" class="input-municipios form-check-input" onchange="mostrarBairros();atualizarDropdowns()"> {{municipio}}
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!--BAIRROS-->
+                    <div class="col-6 col-md-12 col-xl-6" onfocus="showCheckboxesBairros()"
+                        onkeyup="filterFunctionBairros()">
+                        <div class="selectBox input-group-sm">
+                            <label for="bairros">Bairros:</label>
+                            <input type="text" class="text-input-bairros form-control" placeholder="Buscar Bairros..." autocomplete="off"
+                                >
+                        </div>
+                        <div id="checkboxes-bairros" class="dropdown-menu dropdown-content">
+                        </div>
+                    </div>
+                
+                    <!--CONSOLIDADOS-->
+                    <div class="col-12" onfocus="showCheckboxesConsolidados()"
+                        onkeyup="filterFunctionConsolidados()">
+                        <div class="selectBox input-group-sm">
+                            <label for="consolidados">Consolidados:</label>
+                            <input type="text" class="text-input-consolidados form-control"
+                                placeholder="Buscar Consolidados..." name="consolidados" id="consolidados" autocomplete="off">
+                            
+                        </div>
+                        <div id="checkboxes-consolidados" class="dropdown-menu dropdown-content">
+                            {% block opcoes_consolidados %}
+                            {% for consolidado in consolidados_disponiveis %}
+                            <label for="{{consolidado}}" class="label-checkbox-consolidados form-check-label">
+                                <input type="checkbox" name="lista_consolidados" id="{{consolidado}}"
+                                    value="{{consolidado}}" class="text-input-consolidados form-check-input"
+                                    onchange="atualizarConsolidados()" autocomplete="off"> {{consolidado}}
+                            </label>
+                            {% endfor %}
+                            {% endblock %}
+                        </div>
+                    </div>
+
+                    <!--DATA-INICIO-->
+                    <div class="col-6 col-md-12 col-xl-6 input-group-sm">
+                        <label for="data_inicio">Data Início:</label>
+                        <input class="form-control" type="date" id="data-inicio" name="data_inicio" required min="2010-01-01" autocomplete="off">
+                    </div>
+
+                    <!--DATA-FIM-->
+                    <div class="col-6 col-md-12 col-xl-6 input-group-sm">
+                        <label for="data_fim">Data Fim:</label>
+                        <input class="form-control" type="date" id="data-fim" name="data_fim" required min="2010-01-01" autocomplete="off">
+                    </div>
+
+                    <!--BOTÃO BUSCA-->
+                    <div class="col-12 btn mt-3" id="container-btn-pesquisa">
+                        <input type="submit" class="btn btn-primary" name="btn-pesquisa" value="BUSCAR">
+                    </div>
+                       
+              
+                </form>
+            </div>
+            <hr>
+            <div class="container-dropdowns-pai">
+                {% if df is not None %}
+                <div class="container-resultado-pesquisa">
+                    <h5>PESQUISA REALIZADA COM SUCESSO!</h5>
+                    <p>A tabela apresentada não contém todos os dados disponíveis, para fazer o download da tabela
+                        completa basta clicar no botão "BAIXAR TABELA"</p>
+                </div>
+                {% else %}
+                {% if erro %}
+                <div class="container-resultado-pesquisa">
+                    <h5 class='erro'>{{erro}}</h5>
+                    <!-- <p>Ocorreu um erro ao realizar a pesquisa</p> -->
+                    <!--<p>{{ erro }}!!!</p>-->
+                    <!-- <p>O formulário recebeu pelo menos um campo vazio durante a pesquisa</p> -->
+                </div>
+                {% endif %}
+                {% endif %}
+                <div class="row container-dropdowns hidden">
+                    <div class="col-xl-6 container-dropdown-municipios">
+                        <div class="row" id="titulo-municipios"><button class="btn btn-deleteAll"
+                                onclick="deleteAllMunicipios()" title="DELETAR TODOS">MUNICÍPIOS<i
+                                    class="bi bi-trash3-fill"></i></button></div>
+                        <div class="row p-2" id="lista-municipios"></div>
+                    </div>
+                    <div class="col-xl-6 container-dropdown-consolidados">
+                        <div class="row" id="titulo-consolidados"><button class="btn btn-deleteAll"
+                                onclick="deleteAllConsolidados()" title="DELETAR TODOS">CONSOLIDADOS<i
+                                    class="bi bi-trash3-fill"></i></button></div>
+                        <div class="row p-2" id="lista-consolidados"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--TABELA-->
+        {% if df is not None %}
+        <div class="container-table col-md-8 col-sm-12">
+            <div style="overflow-x: auto;" >
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            {% for col in df.columns %}
+    
+                            <th class="text-center">{{col}}</th>
+    
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, row in df.iterrows %}
+                        <tr>
+                            {% for cell in row %}
+                            {% if cell == None %}
+                            <td></td>
+                            {% else %}
+                            <td class="celula">
+                                {{cell}}
+                            </td>
+                            {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block download %}
+            <div class="text-center">
+                <a href="{% url 'download_recorte' %}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"
+                    id="btn-download">
+                    <i class="bi bi-download"></i>
+                    BAIXAR TABELA
+                </a>
+            </div>
+            {% endblock %}
+            {% else %}
+            <div id="container-informacoes-site" class="pt-4 col-md-8 col-sm-12">
+            {% block informacoes-site %}
+            <select class="form-select" onChange="atualizarGrafico(this.value)">
+                <option disabled selected>{% now "F" as mes %}{{ mes|upper }}</option>
+                <option value="01">JANEIRO</option>
+                <option value="02">FEVEREIRO</option>
+                <option value="03">MARÇO</option>
+                <option value="04">ABRIL</option>
+                <option value="05">MAIO</option>
+                <option value="06">JUNHO</option>
+                <option value="07">JULHO</option>
+                <option value="08">AGOSTO</option>
+                <option value="09">SETEMBRO</option>
+                <option value="10">OUTUBRO</option>
+                <option value="11">NOVEMBRO</option>
+                <option value="12">DEZEMBRO</option>
+            </select>
+            
+            
+            <div id="container-grafico" style="width: 100%; height: 100%;">
+            
+            </div>
+            {% endblock %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    </div>
+    {% block modal %}
+      
+    <div class="modal-container">
+        <div class="modal-content mx-2 mx-sm-auto">   
+            <button id="modal-close-btn">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <hr class="mt-5">
+            <div class="mx-4 my-3">
+                <h3>BEM-VINDO!</h3>
+                <p>
+                    O INTUITO DESTE SITE É FORNECER UM RECORTE DA BASE ESTATÍSTICA DE CRIMES DO ESTADO.
+                </p>
+                <ul class="text-start  mb-1"><b>INSTRUÇÕES:</b>
+                    <li class="mb-1 ml-2">PREENCHA OS CAMPOS QUE VOCÊ DESEJA USAR COMO FILTRO</li>
+                    <li class="mb-1 ml-2">APÓS O PREENCHIMENTO DOS DADOS SERÁ GERADA UMA TABELA DE EXIBIÇÃO DOS DADOS REQUERIDOS</li>
+                    <li class="mb-1 ml-2">ALÉM DISSO, VOCÊ PODERÁ FAZER O DOWNLOAD DA TABELA COM OUTROS CAMPOS QUE NÃO APARECEM NA VISUALIZAÇÃO DO SITE </li>
+                </ul>
+                <div class="accordion mt-4" id="accordioninfo">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseinfo" aria-expanded="false" aria-controls="collapseinfo">
+                            Saiba mais
+                        </button>
+                        </h2>
+                        <div id="collapseinfo" class="accordion-collapse collapse" data-bs-parent="#accordioninfo">
+                        <div class="accordion-body">
+                            <p>Consulta de Dados Estatísticos Criminais (CODEC)</p>
+                            <ul>
+                                <li>Dados coletados e qualificados pela Secretaria Adjunta de Inteligência e Análise Criminal - SIAC;</li>
+                                <li>Dados atualizados até {{data}};</li>
+                                <li>Dados coletados a partir do Boletim de Ocorrência Policial;</li>
+                                <li>Dados passíveis de alteração da capitulação penal da autoridade policial ou cruzamento de dados com DataSUS.</li>
+                            </ul>
+                            <p>Fonte: Sistema Integrado de Segurança Pública - SISP</p>  
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="modal-continue-btn" class="btn btn-sm btn-success w-25 mb-3">
+                Continuar
+            </button>            
+        </div>
+    </div>
+    {% endblock modal %}
+    {% endblock %}
+
+</body>
+{% block scripts_footer %}
+{% endblock %}
+
+</html>
